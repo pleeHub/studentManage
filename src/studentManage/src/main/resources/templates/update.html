@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/update.css}">
+    <script type="text/javascript" th:src="@{/js/jquery-3.3.1.js}"></script>
+    <title>信息修改</title>
+</head>
+<script type="text/javascript">
+    function panduan2() {
+        let name = $("#name>input").val()
+        let age = $("#age>input").val()
+        let split = $("#year>input").val().split("-");
+        let birthYear = split[0]
+        let birthMonth = split[1]
+        let birthDay = split[2]
+        let remarks = $("#remarks").val()
+        if (name.length == 0 | name.length > 5) {
+            alert("名字不合法")
+            return
+        }
+        if (age == "" | (age < 0 | age > 100)) {
+            alert("年龄不合法")
+            return
+        }
+        if (birthYear < 1900 | birthYear > 2030) {
+            alert("年份输入不合法")
+            return
+        }
+        if (birthMonth < 1 | birthMonth > 12) {
+            alert("月份输入不合法")
+            return
+        }
+        if (birthDay < 1 | birthDay > 31) {
+            alert("日份输入不合法")
+            return
+        }
+        if (remarks.length == 0) {
+            alert("请输入备份")
+            return
+        }
+        return 1;
+    }
+
+    function validate() {
+        var number = panduan2();
+        if (number == 1) {
+            if (confirm("是否提交修改信息?")) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false
+        }
+    }
+</script>
+<body>
+
+<div class="title">
+    <h1>学生修改</h1>
+    <hr/>
+</div>
+
+<form id="filterFrom" method="post" th:action="@{/updateStudent}">
+    <input type="hidden" name="number" th:value="${student.number}">
+    <div id="name">姓名: <input type="text" name="name" th:value="${student.name}"/></div>
+    <div id="sex">性别：<select name="sex">
+        <option value="0">女</option>
+        <option value="1">男</option>
+    </select></div>
+    <div id="age">年龄:<input type="text" id="sexMin" name="age" th:value="${student.age}"/></div>
+    <div id="birth">出生年月:
+        <div id="year"><input type="text" name="birth" th:value="${student.birth}" placeholder="中间用-连接"/></div>
+    </div>
+    <div id="remark">备注：<textarea rows="2" cols="30" name="remarks" id="remarks"
+                                  th:text="${student.remarks}"></textarea></div>
+    <div class="over"><input type="submit" value="提交" onclick="return validate()"/></div>
+</form>
+</form>
+</body>
+</html>

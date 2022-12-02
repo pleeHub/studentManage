@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100%;
+    overflow: hidden;
+}
+
+.title h1 {
+    position: relative;
+    top: 30px;
+    left: 60px;
+    color: #737474;
+}
+
+.title hr {
+    position: relative;
+    top: 33px;
+    height: 1px;
+    border: none;
+    border-top: 1px solid #cbcbc9;
+}
+
+#filterFrom {
+    position: relative;
+    top: 60px;
+    left: 50px;
+}
+
+#filterFrom {
+    font-size: 19px;
+}
+
+#filterFrom input {
+    height: 40px;
+}
+
+#sex {
+    position: relative;
+    top: 20px;
+}
+
+#sex select {
+    height: 20px;
+}
+
+#age {
+    position: relative;
+    top: 50px;
+}
+
+#birth {
+    position: relative;
+    top: 80px;
+}
+
+#year {
+    position: relative;
+    left: 85px;
+    top: -30px;
+    height: 30px;
+}
+
+#year input {
+    width: 110px;
+    height: 30px;
+}
+
+#remark {
+    position: relative;
+    /*left: 195px;*/
+    top: 60px;
+}
+
+#remark textarea {
+    position: relative;
+    top: 10px
+}
+
+.over {
+    position: relative;
+    top: 90px;
+}
+
+.over input {
+    width: 80px;
+}
+
+
+
+
+

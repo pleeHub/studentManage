@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{css/add.css}">
+    <script type="text/javascript" th:src="@{/js/jquery-3.3.1.js}"></script>
+    <script type="text/javascript" th:src="@{js/add.js}"></script>
+    <title>信息添加</title>
+</head>
+<script type="text/javascript">
+    function panduan1() {
+        let name = $("#name>input").val()
+        let age = $("#age>input").val()
+        let birthYear = $("#year>input").val()
+        let birthMonth = $("#month>input").val()
+        let birthDay = $("#day>input").val()
+        let txt = $("#txt>input").val()
+        let remarks = $("#remarks").val()
+        if (name.length == 0 | name.length > 5) {
+            alert("名字不合法")
+            return
+        }
+        if (age == "" | (age < 0 | age > 100)) {
+            alert("年龄不合法")
+            return
+        }
+        if (birthYear < 1900 | birthYear > 2030) {
+            alert("年份输入不合法")
+            return
+        }
+        if (birthMonth < 1 | birthMonth > 12) {
+            alert("月份输入不合法")
+            return
+        }
+        if (birthDay < 1 | birthDay > 31) {
+            alert("日份输入不合法")
+            return
+        }
+        if (remarks.length == 0) {
+            alert("请输入备份")
+            return
+        }
+        if (txt.length == 0) {
+            alert("请输入验证码")
+            return
+        }
+        return 1;
+    }
+
+    function validate() {
+        var number = panduan1();
+        if (number == 1) {
+            if (confirm("是否提交信息?")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+</script>
+<body>
+
+<div class="title">
+    <h1>学生添加</h1>
+    <hr/>
+</div>
+
+<form id="filterFrom" method="post" th:action="@{/addStudent}">
+    <div id="name">姓名: <input type="text" name="name"/></div>
+    <div id="sex">性别：<select name="sex">
+        <option value="0">女</option>
+        <option value="1">男</option>
+    </select></div>
+    <div id="age">年龄:<input type="text" id="sexMin" name="age"/></div>
+    <div id="birth">出生年月:
+        <div id="year"><input type="text" name="year"/>年</div>
+        <div id="month"><input type="text" name="month"/>月</div>
+        <div id="day"><input type="text" name="day"/>日</div>
+    </div>
+    <div id="remark">备注：<textarea rows="2" cols="30" name="remarks" id="remarks"></textarea></div>
+    <div class="txt"><input name="kaptcha" type="text" placeholder="请输入验证码" autocomplete="off"
+                            required="required"></div>
+    <div class="yzm"><img id="yzm" th:src="@{/getCode?d=1}"/></div>
+    <div class="over"><input type="submit" value="提交" onclick="return validate()"/>
+        <input type="reset" value="清空"/></div>
+</form>
+</form>
+</body>
+</html>

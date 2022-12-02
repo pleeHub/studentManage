@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.peter.mapper.StudentMapper">
+
+    <resultMap id="student" type="com.peter.pojo.Student">
+        <id property="number" column="st_number" jdbcType="INTEGER"></id>
+        <result property="name" column="st_name" jdbcType="VARCHAR"></result>
+        <result property="sex" column="st_sex" jdbcType="BOOLEAN"></result>
+        <result property="age" column="st_age" jdbcType="INTEGER"></result>
+        <result property="birth" column="st_birth" jdbcType="DATE"></result>
+        <result property="remarks" column="st_remarks" jdbcType="LONGVARCHAR"></result>
+    </resultMap>
+
+    <sql id="base_column">
+        st_number,st_name,st_sex,st_age,st_birth,st_remarks
+    </sql>
+
+    <sql id="where_pojo">
+        <where>
+            <if test="number != null">AND st_number = #{number,jdbcType=INTEGER}</if>
+            <if test="name != null">AND st_name = #{name,jdbcType=VARCHAR}</if>
+            <if test="sex != null">AND st_sex = #{sex,jdbcType=BOOLEAN}</if>
+            <if test="age != null">AND st_age = #{age,jdbcType=INTEGER}</if>
+            <if test="birth != null">AND st_birth = #{birth,jdbcType=DATE}</if>
+        </where>
+    </sql>
+
+    <sql id="where_map">
+        <where>
+            <if test="number != null">AND st_number = #{number,jdbcType=INTEGER}</if>
+            <if test="name != null">AND st_name = #{name,jdbcType=VARCHAR}</if>
+            <if test="sex != null">AND st_sex = #{sex,jdbcType=BOOLEAN}</if>
+            <if test="ageMax != null and ageMin != null">
+                AND st_age BETWEEN #{ageMin,jdbcType=INTEGER} AND #{ageMax,jdbcType=INTEGER}
+            </if>
+            <if test="birthYear != null">AND YEAR(st_birth) = #{birthYear,jdbcType=DATE}</if>
+            <if test="birthMonth != null">AND MONTH(st_birth) = #{birthMonth,jdbcType=DATE}</if>
+            <if test="birthDay != null">AND DAY(st_birth) = #{birthDay,jdbcType=DATE}</if>
+        </where>
+    </sql>
+
+    <sql id="where_map_like">
+        <where>
+            <if test="number != null">AND st_number = #{number,jdbcType=INTEGER}</if>
+            <if test="name != null">AND st_name like concat( '%' , #{name}, '%')</if>
+            <if test="sex != null">AND st_sex = #{sex,jdbcType=BOOLEAN}</if>
+            <if test="ageMax != null and ageMin != null">
+                AND st_age BETWEEN #{ageMin,jdbcType=INTEGER} AND #{ageMax,jdbcType=INTEGER}
+            </if>
+            <if test="birthYear != null">AND YEAR(st_birth) = #{birthYear,jdbcType=DATE}</if>
+            <if test="birthMonth != null">AND MONTH(st_birth) = #{birthMonth,jdbcType=DATE}</if>
+            <if test="birthDay != null">AND DAY(st_birth) = #{birthDay,jdbcType=DATE}</if>
+        </where>
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO tb_students VALUES(NULL,#{name},#{sex},#{age},#{birth},#{remarks})
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM tb_students
+        <where>
+            <if test="id != null">st_number = #{id,jdbcType=INTEGER}</if>
+        </where>
+    </delete>
+
+    <delete id="deleteByEntity">
+        DELETE FROM tb_students
+        <include refid="where_pojo"/>
+    </delete>
+
+    <delete id="deleteByMap">
+        DELETE FROM tb_students
+        <include refid="where_map"/>
+    </delete>
+
+    <update id="update" parameterType="com.peter.pojo.Student">
+        UPDATE tb_students
+        <set>
+            <if test="name != null">
+                st_name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                st_sex = #{sex,jdbcType=BOOLEAN},
+            </if>
+            <if test="age != null">
+                st_age = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="birth != null">
+                st_birth = #{birth,jdbcType=DATE},
+            </if>
+            <if test="remarks != null">
+                st_remarks = #{remarks,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where st_number = #{number ,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectList" resultMap="student">
+        SELECT <include refid="base_column"></include> FROM tb_students
+    </select>
+
+    <select id="selectById" resultMap="student">
+        SELECT <include refid="base_column"></include> FROM tb_students
+        <where>
+            <if test="id != null">st_number = #{id,jdbcType=INTEGER}</if>
+        </where>
+    </select>
+
+    <select id="selectBatchList" resultMap="student">
+        SELECT <include refid="base_column"></include> FROM tb_students
+        WHERE st_number in (-1,
+        <foreach collection="list" item="item" open="" close="" separator=",">
+            #{item}
+        </foreach>
+        )
+    </select>
+
+    <select id="selectByEntity" resultMap="student">
+        SELECT <include refid="base_column"></include> FROM tb_students
+        <include refid="where_pojo"/>
+    </select>
+
+    <select id="selectByMap" resultMap="student">
+        SELECT <include refid="base_column"></include> FROM tb_students
+        <include refid="where_map"/>
+    </select>
+
+    <select id="selectLikeByName" resultMap="student">
+        SELECT <include refid="base_column"></include> FROM tb_students
+        where st_name like concat( '%' , #{name}, '%')
+    </select>
+
+    <select id="selectLikeByMap" resultMap="student">
+        SELECT <include refid="base_column"></include> FROM tb_students
+        <include refid="where_map_like"></include>
+    </select>
+
+</mapper>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}">
+    <script type="text/javascript" th:src="@{/js/jquery-3.3.1.js}"></script>
+    <script type="text/javascript" th:src="@{/js/home.js}"></script>
+    <title>主页</title>
+</head>
+<body>
+
+<div class="title">
+    <h1>学生列表</h1>
+    <hr/>
+</div>
+
+<div class="filter">
+    <a class="add" th:href="@{/toAdd}">新增</a>
+    <div id="filterFrom">
+        <div id="name">姓名: <input type="text" name="name"/></div>
+        <div id="isLike"><select name="isLike">
+            <option value="0">模糊查询</option>
+            <option value="1">精确查询</option>
+        </select></div>
+        <div id="sex"><select name="sex">
+            <option value="2">全部</option>
+            <option value="0">女</option>
+            <option value="1">男</option>
+        </select></div>
+        <div id="age">年龄:
+            <input type="text" id="ageMin" name="ageMin"/> -
+            <input type="text" id="ageMax" name="ageMax"/>
+        </div>
+        <div id="birth">出生年月:
+            <div id="year"><input type="text" name="year"/>年</div>
+            <div id="month"><input type="text" name="month"/>月</div>
+        </div>
+    </div>
+    <div id="admin">查询</div>
+    <div id="clickRed">批量删除</div>
+</div>
+
+
+<!--学生数据表-->
+<table border="0px" cellspacing="0" class="studentTable" align="center">
+    <th width="70px" height="50px" class="tableTitle">序号</th>
+    <th width="100px">姓名</th>
+    <th width="100px">性别</th>
+    <th width="100px">年龄</th>
+    <th width="200px">出生日期</th>
+    <th width="200px">备注</th>
+    <th width="200px">操作</th>
+    <tr th:each="student,studentIter:${studentsList}">
+        <td class="mineID" th:text="${student.number}">1</td>
+        <td th:text="${student.name}">张三</td>
+        <td th:if="${student.sex}">男</td>
+        <td th:unless="${student.sex}">女</td>
+        <td th:text="${student.age}">20</td>
+        <td th:text="${student.birth}">2022-02-25,12:43:37</td>
+        <td th:text="${student.remarks}">备注备注备注备注备注备</td>
+        <td>
+            <button class="student_button1">更改</button>
+            <button class="student_button2">删除</button>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

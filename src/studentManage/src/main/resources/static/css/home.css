@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.title h1 {
+    position: relative;
+    top: 30px;
+    left: 60px;
+    color: #737474;
+}
+.title hr {
+    position: relative;
+    top: 33px;
+    height: 1px;
+    border: none;
+    border-top: 1px solid #cbcbc9;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+}
+
+.studentTable {
+    position: relative;
+    top: 40px;
+    left: 50px;
+    text-align: center;
+}
+
+.studentTable td {
+    border-right: 1px solid black;
+}
+
+.studentTable th {
+    position: relative;
+    left: 7px;
+}
+
+.studentTable tr {
+    height: 50px;
+}
+
+.filter {
+    position: relative;
+
+    top: 50px;
+    height: 50px;
+}
+
+.filter .add {
+    position: relative;
+    top: 12px;
+    left: 65px;
+    padding: 6px 20px;
+    background-color: #8d8df5;
+    border-radius: 5%;
+}
+
+#filterFrom {
+
+    position: relative;
+    width: auto;
+    top: -10px;
+    left: 200px;
+}
+
+#name input {
+    height: 20px;
+}
+
+#isLike select {
+    position: relative;
+    top: -23px;
+    left: 125px;
+    border: none;
+}
+
+#sex select {
+    position: relative;
+    top: -46px;
+    left: 240px;
+    padding: 4px 0;
+}
+
+#age {
+    position: relative;
+    top: -70px;
+    left: 300px;
+}
+
+#age input {
+    width: 40px;
+    padding: 2px 0;
+}
+
+#birth {
+    position: relative;
+    top: -93px;
+    left: 480px;
+}
+
+#birth input {
+    width: 40px;
+    padding: 2px 0;
+}
+
+#year {
+    position: relative;
+    top: -22px;
+    left: 90px;
+}
+
+#month {
+    position: relative;
+    top: -46px;
+    left: 154px;
+}
+
+#admin {
+    position: relative;
+    top: -177px;
+    left: 940px;
+    padding: 6px 20px;
+    width: 33px;
+    background-color: #66b2e5;
+    border-radius: 5%;
+}
+
+#clickRed {
+    position: relative;
+    top: -207px;
+    left: 1100px;
+    padding: 6px 40px;
+    width: 33px;
+    background-color: #66b2e5;
+    border-radius: 5%;
+}
